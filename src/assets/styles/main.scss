@@ -1,0 +1,71 @@
+:root {
+  --body-background: linear-gradient(to bottom, #081221, #03080f);
+  --card-background: #0e1a2b;
+  --label-color: #FFF;
+  --text-color: #c1d1e8;
+  --input-background: #182c47;
+  --button-blue: #5692e8;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url(~@/assets/fonts/Mulish-SemiBold.woff) format('truetype');
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-weight: bold;
+  src: url(~@/assets/fonts/Mulish-Bold.woff) format('truetype');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.my-8 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}
+
+.flex--grow {
+  flex-grow: 1;
+}
