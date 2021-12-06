@@ -8,7 +8,6 @@
 <script>
 // @ is an alias to /src
 
-import {fetchVideos} from "@/api";
 import FilterBox from "@/components/home/FilterBox";
 import VideoList from "@/components/home/VideoList";
 
@@ -22,12 +21,6 @@ export default {
       orderBy: ''
     }
   }),
-  async created () {
-
-  },
-  methods: {
-
-  }
 }
 </script>
 
