@@ -23,13 +23,10 @@ export default {
     }
   }),
   async created () {
-    await this.getVideos()
+
   },
   methods: {
-    async getVideos () {
-      const res = await fetchVideos()
-      console.log(res)
-    }
+
   }
 }
 </script>

@@ -5,7 +5,7 @@
         <div class="d-flex justify-center items-center">{{ game.score }}</div>
       </div>
     </div>
-    <div class="details d-flex">
+    <div class="details d-flex justify-space-between">
       <div class="d-flex flex-column justify-space-between">
         <div>
           <h4>{{ game.title }}</h4>
@@ -62,6 +62,7 @@ export default {
 
     @media (min-width: 768px) {
       width: 180px;
+      min-width: 180px !important;
       margin-bottom: 0;
     }
   }
@@ -69,16 +70,26 @@ export default {
   .details {
     padding: 10px 20px;
     background: var(--card-background);
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: calc(100% - 180px);
+    }
 
     h4 {
-      font-size: 40px;
+      font-size: 30px;
       margin: 0;
       font-weight: bold;
     }
 
     .description {
-      max-width: 500px;
+      //max-width: 500px;
       margin: 40px 0 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
   }
 }

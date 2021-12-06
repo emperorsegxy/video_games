@@ -13,7 +13,7 @@ export default {
   }),
   mounted() {
     this.id = setInterval(() => {
-      this.fillWidth += 20
+      this.fillWidth += 10
       this.$refs.filler.style.width = this.fillWidth + '%'
     }, 500)
   },

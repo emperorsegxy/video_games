@@ -19,6 +19,7 @@
 <script>
 import VideoGame from "@/components/home/VideoGame";
 import LinearLoader from "@/components/resuables/LinearLoader";
+import {fetchVideos} from "@/api";
 export default {
   name: "VideoList",
   components: {LinearLoader, VideoGame},
@@ -27,31 +28,14 @@ export default {
     loading: false,
   }),
   async created () {
-    const videoGames = [
-      {
-        title: 'Mortal Kombat',
-        releasedDate: new Date(),
-        score: 9,
-        description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. '
-      },
-      {
-        title: 'Money Heist',
-        releasedDate: new Date(),
-        score: 10,
-        description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. '
-      },
-      {
-        title: 'Minority Report',
-        releasedDate: new Date(),
-        score: 8,
-        description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. '
-      }
-    ]
     this.loading = true
-    await setTimeout(() => {
-      this.videoGames = videoGames
+    try {
+      await this.getVideos()
+    } catch (e) {
+      console.error(e)
+    } finally {
       this.loading = false
-    }, 2000)
+    }
   },
   props: {
     filterOptions: Object
@@ -64,7 +48,11 @@ export default {
   methods: {
     matchesFilterOption (videoGame) {
       const { filterOptions: { score, name } } = this
-      return videoGame.title.toLowerCase().includes(name.toLowerCase()) && (+score ? +videoGame.score === +score : true)
+      const isScoreSame = (rating) => {
+        const [min, max] = score.split('-')
+        return rating === +min || rating === +max || (rating > +min && rating < +max)
+      }
+      return videoGame.title.toLowerCase().includes(name.toLowerCase()) && (score ? isScoreSame(videoGame.score) : true)
     },
     orderVideoGames (games) {
       const { filterOptions: { orderBy } } = this
@@ -74,6 +62,13 @@ export default {
         'name': (games) => games.sort((a, b) => a.title.localeCompare(b.title))
       }
       return orderBys[orderBy.toLowerCase()]?.(games) ?? games
+    },
+    async getVideos () {
+      const { data } = await fetchVideos()
+      console.log(data)
+      this.videoGames = data
+          .map(({id, name, rating, summary, first_release_date}) =>
+              ({title: name, score: parseInt(rating), id, description: summary, releasedDate: new Date(first_release_date)}))
     }
   }
 }
@@ -83,5 +78,7 @@ export default {
 .video-list-wrapper {
   padding: 0 15px;
   padding-bottom: 40px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 </style>
